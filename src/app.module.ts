@@ -5,6 +5,7 @@ import { UsersModule } from './users/users.module';
 import { ReservasModule } from './reservas/reservas.module';
 import { AuthModule } from './auth/auth.module';
 import { EquiposModule } from './equipos/equipos.module';
+import { config } from 'process';
 
 @Module({
   imports: [

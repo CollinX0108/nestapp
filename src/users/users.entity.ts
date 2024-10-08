@@ -3,7 +3,7 @@ import { Reserva } from '../reservas/reservas.entity';
 import { Role } from './role.enum';
 import { Equipo } from '../equipos/equipo.entity';
 
-@Entity()
+@Entity('users')
 export class User {
   @PrimaryGeneratedColumn()
   id: number;
