@@ -1,0 +1,647 @@
+{
+	"info": {
+		"_postman_id": "91fd3d83-2e37-441c-bdcd-33689706ad74",
+		"name": "NestJSApp",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "35356545"
+	},
+	"item": [
+		{
+			"name": "UserRegister",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"usuario11@ejemplo.com\",\n    \"password\": \"contraseña1234\",\n    \"username\": \"Usuario Ejemplo11\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/auth/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UserRegisterAdmin",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwic3ViIjoxNiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzI4NDE4NzkwLCJleHAiOjE3Mjg0MjIzOTB9.qQl38SD9RUha2Srff6_aQ-IpWSXCZAd5w8NK2JgWLck",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"username\": \"admin5\",\n  \"email\": \"newadmin5@example.com\",\n  \"password\": \"securepassword123\",\n  \"role\": \"admin\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/auth/register/admin",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"auth",
+						"register",
+						"admin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UserLogin",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"username\": \"Usuario Ejemplo9\",\n  \"password\": \"contraseña1234\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UserLoginAdmin",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"username\": \"admin\",\n  \"password\": \"contraseña777\"\n} ",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UserGet",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlVzdWFyaW8gRWplbXBsbzkiLCJzdWIiOjI4LCJyb2xlIjoianVnYWRvciIsImlhdCI6MTcyODQxODgyMiwiZXhwIjoxNzI4NDIyNDIyfQ.-aba7PQMhMyIVNn0ERzlNaIV1hO2fzxFMcFJXnRqAkU",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/auth/profile",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"auth",
+						"profile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UserLogout",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlVzdWFyaW8gRWplbXBsbzkiLCJzdWIiOjI4LCJyb2xlIjoianVnYWRvciIsImlhdCI6MTcyODQxODg1MiwiZXhwIjoxNzI4NDIyNDUyfQ.WwMdSjrEFKmDRDIwWf-Y4U2aFBrP4oGZ9WGKBgOxNPk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/auth/logout",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"auth",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ReservaCreate",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlVzdWFyaW8gRWplbXBsbzkiLCJzdWIiOjI4LCJyb2xlIjoianVnYWRvciIsImlhdCI6MTcyODQxODg1MiwiZXhwIjoxNzI4NDIyNDUyfQ.WwMdSjrEFKmDRDIwWf-Y4U2aFBrP4oGZ9WGKBgOxNPk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"nombreReservante\": \"David\",\n  \"correo\": \"juan@example.com\",\n  \"telefono\": \"+573001234567\",\n  \"cantidadPersonas\": 4,\n  \"fechaHora\": \"2024-07-15T14:06:00.000Z\",\n  \"deporte\": \"futbolito\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/reservas/crear",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"reservas",
+						"crear"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ReservaGetAll",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlVzdWFyaW8gRWplbXBsbzkiLCJzdWIiOjI4LCJyb2xlIjoianVnYWRvciIsImlhdCI6MTcyODQxODkxNCwiZXhwIjoxNzI4NDIyNTE0fQ.F5P51saUVLS6nmmudSnDrZgsfJPD6UJdIRhNaWQem5g",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/reservas/listar",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"reservas",
+						"listar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ReservaGet",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlVzdWFyaW8gRWplbXBsbzkiLCJzdWIiOjI4LCJyb2xlIjoianVnYWRvciIsImlhdCI6MTcyODQxODk1NCwiZXhwIjoxNzI4NDIyNTU0fQ.u9MBgcvERNbZ7d--0s1fQtR0fmIqMCmKlu8l2y1Mo3E",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/reservas/buscar/:id",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"reservas",
+						"buscar",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ReservaEdit",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwic3ViIjoxNiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzI4MzY4NjQxLCJleHAiOjE3MjgzNzIyNDF9.YNGZGtyFuUZ4cpdfA3f883gC055DPzzHx1i_7xz9wHE",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nombreReservante\": \"Collin Gonzalez\",\n    \"cantidadPersonas\": 5,\n    \"fechaHora\": \"2024-07-16T15:00:00.000Z\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/reservas/editar/:id",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"reservas",
+						"editar",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ReservaDelete",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwic3ViIjoxNiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzI4MzY4ODIxLCJleHAiOjE3MjgzNzI0MjF9.LD1OZl_85O24SMyGY-t-L5h-1YqI12s1q6EHJGJF6f4",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/reservas/cancelar/:id",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"reservas",
+						"cancelar",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "EquipoCreate",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwic3ViIjoxNiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzI4NDE0OTc5LCJleHAiOjE3Mjg0MTg1Nzl9.q2beQ8LYun5qSxzEAFmQswk3OpidmUkdp9DWkWCqG8s",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"nombre\": \"Santa Fe\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/equipos/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"equipos",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "EquipoGetAll",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlVzdWFyaW8gRWplbXBsbzYiLCJzdWIiOjI0LCJyb2xlIjoianVnYWRvciIsImlhdCI6MTcyODQxMzE5MiwiZXhwIjoxNzI4NDE2NzkyfQ.-ngnHs_4JXU6mwR1tREhnE6XzFoRagxJhYV5m_KrYrY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/equipos/list",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"equipos",
+						"list"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "EquipoGet",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlVzdWFyaW8gRWplbXBsbzYiLCJzdWIiOjI0LCJyb2xlIjoianVnYWRvciIsImlhdCI6MTcyODQxMzE5MiwiZXhwIjoxNzI4NDE2NzkyfQ.-ngnHs_4JXU6mwR1tREhnE6XzFoRagxJhYV5m_KrYrY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/equipos/:equipoId",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"equipos",
+						":equipoId"
+					],
+					"variable": [
+						{
+							"key": "equipoId",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "EquipoAddPlayer",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlVzdWFyaW8gRWplbXBsbzciLCJzdWIiOjI1LCJyb2xlIjoianVnYWRvciIsImlhdCI6MTcyODQxNDMwNCwiZXhwIjoxNzI4NDE3OTA0fQ.QcA-7-1rNVH35DinKxUDaN7W3efyTy5CdvQgGuG0r0A",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/equipos/:equipoId/add-jugador/:jugadorId",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"equipos",
+						":equipoId",
+						"add-jugador",
+						":jugadorId"
+					],
+					"variable": [
+						{
+							"key": "equipoId",
+							"value": "1"
+						},
+						{
+							"key": "jugadorId",
+							"value": "19"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "EquipoRemovePlayer",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwic3ViIjoxNiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzI4NDE0NzA4LCJleHAiOjE3Mjg0MTgzMDh9.j-OVpysxXvqteiaMKjA4_2QLJYTQBNfOo1WZd7CqGX0",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/equipos/:equipoId/remove-jugador/:jugadorId",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"equipos",
+						":equipoId",
+						"remove-jugador",
+						":jugadorId"
+					],
+					"variable": [
+						{
+							"key": "equipoId",
+							"value": "1"
+						},
+						{
+							"key": "jugadorId",
+							"value": "20"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "EquipoDelete",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlVzdWFyaW8gRWplbXBsbzYiLCJzdWIiOjI0LCJyb2xlIjoianVnYWRvciIsImlhdCI6MTcyODQxNTIxOCwiZXhwIjoxNzI4NDE4ODE4fQ.cEyhYcXTvWZ5MqRcF2RkKlgGXXUQyNFXoVnMVMlKPqs",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/equipos/:equipoId",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"equipos",
+						":equipoId"
+					],
+					"variable": [
+						{
+							"key": "equipoId",
+							"value": "4"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "host",
+			"value": "https://nestapp-gsup.onrender.com/",
+			"type": "string"
+		}
+	]
+}
