@@ -25,8 +25,8 @@ import { AuthModule } from './auth/auth.module';
       inject: [ConfigService],
     }),
     UsersModule,
+    AuthModule,
     ReservasModule,
-    AuthModule
     // Otros módulos...
   ],
 })

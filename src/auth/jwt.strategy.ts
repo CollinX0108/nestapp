@@ -1,28 +1,35 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
+import { PassportStrategy } from '@nestjs/passport';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { AuthService } from './auth.service';
+import { UsersService } from '../users/users.service';
+import { TokenBlacklistService } from './token-blacklist.service';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor(
     private configService: ConfigService,
-    private authService: AuthService
+    private usersService: UsersService,
+    private tokenBlacklistService: TokenBlacklistService
   ) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       ignoreExpiration: false,
       secretOrKey: configService.get<string>('JWT_SECRET'),
-      passReqToCallback: true,
+      passReqToCallback: true, // This allows us to pass the request to the validate method
     });
   }
 
-  async validate(req: any, payload: any) {
-    const token = ExtractJwt.fromAuthHeaderAsBearerToken()(req);
-    if (this.authService.isTokenBlacklisted(token)) {
-      throw new UnauthorizedException('Token no válido o sesión cerrada');
+  async validate(request: any, payload: any) {
+    const token = ExtractJwt.fromAuthHeaderAsBearerToken()(request);
+    if (this.tokenBlacklistService.isBlacklisted(token)) {
+      throw new UnauthorizedException('Token has been invalidated');
     }
-    return { userId: payload.sub, username: payload.username, role: payload.role };
+
+    const user = await this.usersService.findOne(payload.sub);
+    if (!user) {
+      throw new UnauthorizedException('Usuario no encontrado');
+    }
+    return { userId: user.id, username: user.username, role: user.role };
   }
 }

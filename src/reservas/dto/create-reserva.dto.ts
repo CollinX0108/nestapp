@@ -1,4 +1,4 @@
-import { IsString, IsEmail, IsPhoneNumber, IsInt, Min, Max, IsEnum, IsDateString } from 'class-validator';
+import { IsString, IsEmail, IsPhoneNumber, IsInt, Min, Max, IsEnum, IsISO8601 } from 'class-validator';
 import { DeporteTipo } from '../reservas.entity';
 
 export class CreateReservaDto {
@@ -8,7 +8,7 @@ export class CreateReservaDto {
   @IsEmail()
   correo: string;
 
-  @IsPhoneNumber()
+  @IsPhoneNumber('CO')
   telefono: string;
 
   @IsInt()
@@ -16,7 +16,7 @@ export class CreateReservaDto {
   @Max(10)
   cantidadPersonas: number;
 
-  @IsDateString()
+  @IsISO8601()
   fechaHora: string;
 
   @IsEnum(DeporteTipo)
