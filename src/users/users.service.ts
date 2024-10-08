@@ -83,11 +83,10 @@ export class UsersService {
     return this.usersRepository.save(user);
   }
 
-  async remove(id: number): Promise<void> {
-    const result = await this.usersRepository.delete(id);
-    if (result.affected === 0) {
-      throw new NotFoundException(`Usuario con ID ${id} no encontrado`);
-    }
+  async remove(id: number): Promise<User> {
+    const user = await this.findOne(id);
+    await this.usersRepository.remove(user);
+    return user;
   }
 
   async findOneByUsername(username: string): Promise<User | undefined> {

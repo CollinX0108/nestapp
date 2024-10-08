@@ -1,6 +1,6 @@
-import { ForbiddenException, Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException, ForbiddenException, ConflictException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, Between } from 'typeorm';
 import { Reserva } from './reservas.entity';
 import { CreateReservaDto } from './dto/create-reserva.dto';
 import { UpdateReservaDto } from './dto/update-reserva.dto';
@@ -16,27 +16,30 @@ export class ReservasService {
   ) {}
 
   async create(createReservaDto: CreateReservaDto, user: any): Promise<Reserva> {
-    const reserva = this.reservasRepository.create(createReservaDto);
-    const userEntity = await this.usersRepository.findOne({ where: { id: user.userId } });
-    if (!userEntity) {
-      throw new Error('Usuario no encontrado');
+    const usuario = await this.usersRepository.findOne({ where: { id: user.userId } });
+    if (!usuario) {
+      throw new NotFoundException('Usuario no encontrado');
     }
-    reserva.usuario = userEntity;
+
+    // Verificar si hay conflictos de horario
+    const conflicto = await this.verificarConflictoHorario(new Date(createReservaDto.fechaHora));
+    if (conflicto) {
+      throw new ConflictException('Ya existe una reserva en ese horario');
+    }
+
+    const reserva = this.reservasRepository.create(createReservaDto);
+    reserva.usuario = usuario;
     return this.reservasRepository.save(reserva);
   }
 
   async findAll(): Promise<Reserva[]> {
-    // Devuelve todas las reservas, independientemente del usuario
     return this.reservasRepository.find({ relations: ['usuario'] });
   }
 
   async findOne(id: number): Promise<Reserva> {
-    const reserva = await this.reservasRepository.findOne({
-      where: { id },
-      relations: ['usuario'],
-    });
+    const reserva = await this.reservasRepository.findOne({ where: { id }, relations: ['usuario'] });
     if (!reserva) {
-      throw new Error('Reserva no encontrada');
+      throw new NotFoundException('Reserva no encontrada');
     }
     return reserva;
   }
@@ -60,5 +63,19 @@ export class ReservasService {
     }
     
     await this.reservasRepository.remove(reserva);
+  }
+
+  private async verificarConflictoHorario(fechaHora: Date): Promise<boolean> {
+    const fechaInicio = new Date(fechaHora);
+    const fechaFin = new Date(fechaHora);
+    fechaFin.setHours(fechaFin.getHours() + 2);
+
+    const reservasConflicto = await this.reservasRepository.find({
+      where: {
+        fechaHora: Between(fechaInicio, fechaFin)
+      }
+    });
+
+    return reservasConflicto.length > 0;
   }
 }

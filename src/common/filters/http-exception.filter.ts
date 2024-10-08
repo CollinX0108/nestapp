@@ -1,4 +1,4 @@
-import { ExceptionFilter, Catch, ArgumentsHost, HttpException, HttpStatus } from '@nestjs/common';
+import { ExceptionFilter, Catch, ArgumentsHost, HttpException, HttpStatus, UnauthorizedException } from '@nestjs/common';
 import { Request, Response } from 'express';
 
 @Catch()
@@ -14,9 +14,16 @@ export class HttpExceptionFilter implements ExceptionFilter {
     if (exception instanceof HttpException) {
       status = exception.getStatus();
       message = exception.message;
-    } else if (exception instanceof Error) {
+    }
+
+    if (exception instanceof UnauthorizedException) {
+      status = HttpStatus.UNAUTHORIZED;
+      // El mensaje específico viene del JwtAuthGuard
       message = exception.message;
     }
+
+    // Log the exception for debugging
+    console.error(exception);
 
     response
       .status(status)

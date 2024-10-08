@@ -1,6 +1,7 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToMany } from 'typeorm';
 import { Reserva } from '../reservas/reservas.entity';
 import { Role } from './role.enum';
+import { Equipo } from '../equipos/equipo.entity';
 
 @Entity()
 export class User {
@@ -25,4 +26,10 @@ export class User {
 
   @OneToMany(() => Reserva, reserva => reserva.usuario)
   reservas: Reserva[];
+
+  @OneToMany(() => Equipo, equipo => equipo.dueno)
+  equiposCreados: Equipo[];
+
+  @ManyToMany(() => Equipo, equipo => equipo.jugadores)
+  equipos: Equipo[];
 }
