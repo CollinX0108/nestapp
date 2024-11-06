@@ -10,19 +10,19 @@ import { EquiposModule } from './equipos/equipos.module';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: '.env.production',
+      // envFilePath: '.env.production', // Podemos quitar esto ya que Railway maneja las variables
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => ({
         type: 'postgres',
-        url: configService.get('POSTGRES_URL'),
+        url: configService.get('DATABASE_URL'), // Cambiamos a DATABASE_URL que es la que provee Railway
         ssl: {
           rejectUnauthorized: false
         },
         entities: [__dirname + '/**/*.entity{.ts,.js}'],
-        synchronize: true, // Cuidado en producción
-        logging: true // Para ver las queries SQL
+        synchronize: true,
+        logging: true
       }),
       inject: [ConfigService],
     }),
