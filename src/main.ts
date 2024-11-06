@@ -45,10 +45,13 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   
   
+  
   //const configService = app.get(ConfigService);
   //console.log('JWT_SECRET:', configService.get('JWT_SECRET')); // Agrega esta línea para verificar
 
   SwaggerModule.setup('api', app, document);
+
+  app.setGlobalPrefix('api');
 
   console.log('Ambiente:', process.env.NODE_ENV);
   console.log('Puerto:', process.env.PORT);
