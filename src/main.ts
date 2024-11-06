@@ -15,8 +15,6 @@ async function bootstrap() {
     credentials: true,
   });
 
-  app.setGlobalPrefix('api');
-
   // Aplicar el filtro de excepciones global
   app.useGlobalFilters(new HttpExceptionFilter());
 
