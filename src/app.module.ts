@@ -10,19 +10,22 @@ import { EquiposModule } from './equipos/equipos.module';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      // envFilePath: '.env.production', // Podemos quitar esto ya que Railway maneja las variables
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => ({
         type: 'postgres',
-        url: configService.get('DATABASE_URL'), // Cambiamos a DATABASE_URL que es la que provee Railway
+        url: configService.get('DATABASE_URL'),
+        entities: [__dirname + '/**/*.entity{.ts,.js}'],
+        synchronize: true,
         ssl: {
           rejectUnauthorized: false
         },
-        entities: [__dirname + '/**/*.entity{.ts,.js}'],
-        synchronize: true,
-        logging: true
+        extra: {
+          ssl: {
+            rejectUnauthorized: false,
+          },
+        },
       }),
       inject: [ConfigService],
     }),
