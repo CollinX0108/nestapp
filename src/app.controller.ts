@@ -19,4 +19,12 @@ export class AppController {
       return { message: 'Error de conexión a la base de datos', error: error.message };
     }
   }
+
+  @Get('health')
+  health() {
+    return {
+      status: 'ok',
+      timestamp: new Date().toISOString()
+    };
+  }
 }

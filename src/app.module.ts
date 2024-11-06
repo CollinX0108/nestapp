@@ -18,10 +18,11 @@ import { EquiposModule } from './equipos/equipos.module';
         type: 'postgres',
         url: configService.get('POSTGRES_URL'),
         ssl: {
-          rejectUnauthorized: false,
+          rejectUnauthorized: false
         },
-        autoLoadEntities: true,
-        synchronize: true, // Ten cuidado con esto en producción
+        entities: [__dirname + '/**/*.entity{.ts,.js}'],
+        synchronize: true, // Cuidado en producción
+        logging: true // Para ver las queries SQL
       }),
       inject: [ConfigService],
     }),
