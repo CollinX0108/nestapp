@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { ReservasModule } from './reservas/reservas.module';
-import { AuthModule } from './auth/auth.module';
 import { EquiposModule } from './equipos/equipos.module';
 
 @Module({
@@ -15,18 +15,18 @@ import { EquiposModule } from './equipos/equipos.module';
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => ({
         type: 'postgres',
-        host: configService.get('DB_HOST'),
-        port: +configService.get<number>('DB_PORT'),
-        username: configService.get('DB_USERNAME'),
-        password: configService.get('DB_PASSWORD'),
-        database: configService.get('DB_NAME'),
-        entities: [__dirname + '/**/*.entity{.ts,.js}'],
+        url: configService.get('DATABASE_URL'),
+        ssl: {
+          rejectUnauthorized: false,
+        },
+        autoLoadEntities: true,
         synchronize: true, // Cuidado en producción
+        logging: true,
       }),
       inject: [ConfigService],
     }),
-    UsersModule,
     AuthModule,
+    UsersModule,
     ReservasModule,
     EquiposModule,
   ],

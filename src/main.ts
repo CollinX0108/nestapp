@@ -7,6 +7,13 @@ import { ConfigService } from '@nestjs/config';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  
+  // Configurar CORS
+  app.enableCors({
+    origin: '*', // Configura según tus necesidades
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+    credentials: true,
+  });
 
   // Aplicar el filtro de excepciones global
   app.useGlobalFilters(new HttpExceptionFilter());
@@ -42,7 +49,8 @@ async function bootstrap() {
 
   SwaggerModule.setup('api', app, document);
 
-  await app.listen(3000);
+  const port = process.env.PORT || 3000;
+  await app.listen(port);
   console.log(`Application is running on: ${await app.getUrl()}`);
 }
 bootstrap();
