@@ -10,18 +10,18 @@ import { EquiposModule } from './equipos/equipos.module';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
+      envFilePath: '.env.production',
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => ({
         type: 'postgres',
-        url: configService.get('DATABASE_URL'),
+        url: configService.get('POSTGRES_URL'),
         ssl: {
           rejectUnauthorized: false,
         },
         autoLoadEntities: true,
-        synchronize: true, // Cuidado en producción
-        logging: true,
+        synchronize: true, // Ten cuidado con esto en producción
       }),
       inject: [ConfigService],
     }),

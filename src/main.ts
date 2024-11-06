@@ -15,6 +15,8 @@ async function bootstrap() {
     credentials: true,
   });
 
+  //app.setGlobalPrefix('api');
+
   // Aplicar el filtro de excepciones global
   app.useGlobalFilters(new HttpExceptionFilter());
 
@@ -40,14 +42,18 @@ async function bootstrap() {
     .setTitle('API de Reservas Deportivas')
     .setDescription('API para gestionar reservas de instalaciones deportivas')
     .setVersion('1.0')
-    .addBearerAuth() // Añadir soporte para autenticación Bearer en Swagger
+    .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, config);
+  
   
   //const configService = app.get(ConfigService);
   //console.log('JWT_SECRET:', configService.get('JWT_SECRET')); // Agrega esta línea para verificar
 
   SwaggerModule.setup('api', app, document);
+
+  console.log('Ambiente:', process.env.NODE_ENV);
+  console.log('Puerto:', process.env.PORT);
 
   const port = process.env.PORT || 3000;
   await app.listen(port);
