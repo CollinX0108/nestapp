@@ -62,4 +62,11 @@ export class EquiposController {
   async remove(@Param('id') id: string, @Request() req) {
     return this.equiposService.remove(+id, req.user.userId);
   }
+
+  @Get('mis-equipos')
+  @UseGuards(JwtAuthGuard)
+  async getMisEquipos(@Request() req) {
+    const userId = req.user.id;
+    return this.equiposService.findEquiposByUserId(userId);
+  }
 }

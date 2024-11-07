@@ -68,6 +68,22 @@ export class EquiposService {
     return this.cleanEquipo(equipo);
   }
 
+  async findEquiposByUserId(userId: number): Promise<CleanEquipo[]> {
+    const equipos = await this.equiposRepository
+      .createQueryBuilder('equipo')
+      .leftJoinAndSelect('equipo.dueno', 'dueno')
+      .leftJoinAndSelect('equipo.jugadores', 'jugadores')
+      .where('dueno.id = :userId', { userId })
+      .orWhere('jugadores.id = :userId', { userId })
+      .getMany();
+
+    if (!equipos) {
+      return [];
+    }
+
+    return equipos.map(equipo => this.cleanEquipo(equipo));
+  }
+
   async addJugador(equipoId: number, jugadorId: number, userId: number): Promise<CleanEquipo> {
     const equipo = await this.equiposRepository.findOne({
       where: { id: equipoId },
