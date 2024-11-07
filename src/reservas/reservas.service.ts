@@ -65,6 +65,18 @@ export class ReservasService {
     await this.reservasRepository.remove(reserva);
   }
 
+  async getMisReservas(userId: number): Promise<Reserva[]> {
+    return this.reservasRepository.find({
+      where: {
+        usuario: { id: userId }
+      },
+      relations: ['usuario'],
+      order: {
+        fechaHora: 'DESC'
+      }
+    });
+  }
+
   private async verificarConflictoHorario(fechaHora: Date): Promise<boolean> {
     const fechaInicio = new Date(fechaHora);
     const fechaFin = new Date(fechaHora);

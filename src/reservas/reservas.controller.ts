@@ -41,4 +41,10 @@ export class ReservasController {
   remove(@Param('id') id: string, @Request() req) {
     return this.reservasService.remove(+id, req.user);
   }
+
+  @Get('mis-reservas')
+  @ApiOperation({ summary: 'Obtener las reservas del usuario autenticado' })
+  getMisReservas(@Request() req) {
+    return this.reservasService.getMisReservas(req.user.userId);
+  }
 }
